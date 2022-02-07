@@ -1,0 +1,46 @@
+.main__film{
+    font-size: 22px;
+    background-color: black;
+}
+
+.main__film img{
+    width: 100%;
+    opacity: 70%;
+    position: relative;
+}
+
+.main__film-info{
+    color: #f1f1f1;
+    font-weight: bold;
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 55%;
+}
+
+.title{
+    color: snow;
+}
+
+.rating{
+    display: flex;
+    flex-direction: column;
+}
+
+.rating p:last-child{
+    text-align: justify;
+}
+
+.rating span{
+    color: orangered;
+}
+
+.add-info{
+    font-size: 16px;
+    display: flex;
+    color: gainsboro;
+    column-gap: 200px;
+}

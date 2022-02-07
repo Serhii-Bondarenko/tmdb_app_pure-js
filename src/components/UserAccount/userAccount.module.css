@@ -1,0 +1,17 @@
+.userContainer{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.userContainer > div{
+    border-radius: 50%;
+    background-color: dimgray;
+    padding: 15px;
+}
+
+.userContainer i{
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}

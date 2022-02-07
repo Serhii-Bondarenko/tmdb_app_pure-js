@@ -1,0 +1,12 @@
+.formContainer i{
+    font-size: 20px;
+}
+
+.formContainer input{
+    padding: 5px;
+    font-size: 14px;
+}
+
+.formContainer input::placeholder{
+    font-style: italic;
+}

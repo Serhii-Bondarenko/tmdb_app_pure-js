@@ -1,0 +1,25 @@
+.headerContainer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 5px auto;
+}
+
+.headerNav, .userAction{
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.headerNav img{
+    height: 50px;
+}
+
+.headerNav a:last-child{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.userAction{
+
+}
