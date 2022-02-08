@@ -1,0 +1,44 @@
+.list{
+    padding: 10px 5%;
+    transition: 0.3s;
+    height: 0;
+    opacity: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: absolute;
+    background-color: ghostwhite;
+    left: 55px;
+    right: 55px;
+    top: 66px;
+    row-gap: 5px;
+    z-index: -1;
+    box-shadow: 4px 4px 22px 3px rgba(34, 60, 80, 0.15);
+}
+
+.show{
+    opacity: 100%;
+    height: fit-content;
+    transition: 0.5s;
+    z-index: 10;
+}
+
+.wrap .active{
+    border-bottom: 2px solid #ff9638;
+    color: #ff9638;
+}
+
+.title{
+    position: relative;
+    color: dimgray;
+    cursor: pointer;
+    text-align: center;
+    width: fit-content;
+    margin: 6px;
+}
+
+.title:hover{
+    transition: 0.1s;
+    border-bottom: 2px solid #ff9638;
+    color: #ff9638;
+}

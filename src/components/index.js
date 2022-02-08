@@ -5,3 +5,6 @@ export * from './UserAccount/UserAccount';
 export * from './MoviesList/MoviesList';
 export * from './Movie/Movie';
 export * from './Loader/Loader';
+export * from './Slider/Slider';
+export * from './GenresList/GenresList';
+export * from './Genre/Genre';

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
 
 import './movie.css';
@@ -21,7 +21,7 @@ const Movie = ({movie}) => {
     }
 
     return (
-        <Link to={`/movie/${id.toString()}`} state={movie} className='item-link' onMouseOver={over}
+        <Link to={`/movie/${id.toString()}`} state={movie} className='item-link slide' onMouseOver={over}
               onMouseLeave={leave}>
             <div className='item__content'>
                 <img src={poster} alt={title}/>

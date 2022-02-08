@@ -1,0 +1,10 @@
+.item{
+    flex: 0 1 20%;
+    cursor: pointer;
+    color: dimgray;
+    padding: 5px;
+}
+
+.item:hover{
+    background-color: #EDF4FB;
+}

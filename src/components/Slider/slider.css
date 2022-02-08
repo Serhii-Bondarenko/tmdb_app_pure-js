@@ -1,0 +1,21 @@
+.slider{
+}
+
+.slider .slide{
+    max-width: 200px;
+    background-color: #3490FF;
+    flex: none;
+}
+
+.slider .slide img{
+    /*height: 300px;*/
+    /*width: 200px;*/
+}
+
+.slider-track{
+    display: flex;
+    column-gap: 30px;
+    overflow: hidden;
+    overflow-x: scroll;
+
+}
