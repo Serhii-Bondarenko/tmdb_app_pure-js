@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {cinemaService} from '../services';
+import {click} from "@testing-library/user-event/dist/click";
 
 export const getGenres = createAsyncThunk(
     'movieSlice/getGenres',
@@ -20,10 +21,9 @@ export const getMovies = createAsyncThunk(
     'movieSlice/getMovies',
 
     async (_, {dispatch, getState, rejectWithValue}) => {
+        const {movieReducer: {currentPage, category}} = getState();
         try {
-            const {movieReducer: {currentPage, category}} = getState();
-
-            const response = await cinemaService.getByCategory(currentPage, category.id);
+            const response = await cinemaService.getByCategory(currentPage, category);
             dispatch(setMoviesState({response}));
 
         } catch (e) {
@@ -40,8 +40,8 @@ const movieSlice = createSlice({
         totalPages: null,
         movies: [],
         genres: [],
-        selectedFilm: {},
-        category: null,
+        selectedFilm: null,
+        category: 28,
         status: null,
         errors: null
     },
@@ -50,30 +50,17 @@ const movieSlice = createSlice({
 
         setGenres: (state, action) => {
             state.genres = action.payload.genres;
-            state.category = state.genres[0];
-
         },
 
         setMoviesState: (state, action) => {
-
-            const {page, results, total_pages} = action.payload.response;
-
-            state.currentPage = page;
+            const {results, total_pages} = action.payload.response;
             state.totalPages = total_pages;
-
-            if (state.currentPage !== 1) {
-                state.movies = state.movies.concat(results);
-
-                return;
-            }
-
             state.movies = results;
         },
 
         initializeSelectedFilm: (state, action) => {
 
             state.selectedFilm = action.payload.state;
-            state.status = null;
 
             if (state.selectedFilm.genre_ids) {
 
@@ -88,18 +75,17 @@ const movieSlice = createSlice({
         },
 
         setCategory: (state, action) => {
-            state.currentPage = 1;
             state.category = action.payload.genre;
-
         },
 
-        setNextPage: (state, action) => {
-            state.currentPage = action.payload.nextPage;
+        setNewPage: (state, action) => {
+            state.currentPage = action.payload.page;
         },
 
         setStatus: (state, action) => {
-            state.status = 'fulfilled';
+            state.status = action.payload.status;
         }
+
     },
 
     extraReducers: {
@@ -144,6 +130,6 @@ export const {
     setGenres,
     initializeSelectedFilm,
     setCategory,
-    setNextPage,
+    setNewPage,
     setStatus
 } = movieSlice.actions;

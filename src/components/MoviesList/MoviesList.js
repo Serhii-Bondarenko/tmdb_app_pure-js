@@ -2,60 +2,45 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import './movieList.css';
-import {getGenres, getMovies, setNextPage, setStatus} from '../../store';
+import {getGenres, getMovies, setCategory, setNewPage} from '../../store';
 import {Movie} from '../Movie/Movie';
 import {Loader} from "../Loader/Loader";
+import {Link, useLocation, useSearchParams} from "react-router-dom";
+import {Paginator} from "../Paginator/Paginator";
 
 const MoviesList = () => {
 
+    const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
 
-    const [active, setActive] = useState(true);
-    const [disabled, setDisabled] = useState(true);
-
-    let {
+    const {
         currentPage,
         movies,
-        genres,
         totalPages,
         status,
-        category
     } = useSelector(state => state['movieReducer']);
 
     useEffect(() => {
-        dispatch(setStatus());
-        !genres.length && dispatch(getGenres());
-    }, []);
-
-    useEffect(() => {
         document.title = 'FMovies';
-        if (category && status) dispatch(getMovies());
-    }, [currentPage, category]);
-
-    const toNextPage = () => {
-        dispatch(setNextPage({nextPage: ++currentPage}));
-        if (currentPage === 2) {
-            setDisabled(false);
+        if (!searchParams.get('with_genres', 'page')) {
+            setSearchParams({with_genres: '28', page: '1'})
         }
-        if (currentPage === totalPages) {
-            setActive(!active);
-        }
-
-        // console.log({"DO": movies});
-        // console.log({"POSLE": movies});
-    }
+        const page = searchParams.get('page');
+        const genre = searchParams.get('with_genres');
+        dispatch(setCategory({genre: +genre}))
+        dispatch(setNewPage({page}));
+        dispatch(getMovies());
+    }, [searchParams]);
 
     return (
         <div className='wrap-list'>
-            {status === 'pending' && <Loader/>}
             {status === 'rejected' && <h3>OK, so... no movie...</h3>}
             <div className='list'>
                 {movies.map(movie => <Movie key={movie.id} movie={movie}/>)}
             </div>
-            <p className='page__count'>{currentPage}</p>
+            {status === 'pending' && <Loader/>}
             <div className='action__btn'>
-                {!disabled && <button onClick={() => dispatch(setNextPage({nextPage: 1}))}>back to start</button>}
-                {active && <button onClick={toNextPage}>show more</button>}
+                <Paginator totalPages={totalPages}/>
             </div>
         </div>
     );

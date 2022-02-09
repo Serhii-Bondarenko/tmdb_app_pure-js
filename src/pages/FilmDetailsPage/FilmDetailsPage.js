@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import './filmDetailsPage.css';
 import {cinemaService} from '../../services';
-import {initializeSelectedFilm} from '../../store';
+import {initializeSelectedFilm, setStatus} from '../../store';
+import {Loader} from "../../components";
 
 const FilmDetailsPage = () => {
 
@@ -12,9 +13,13 @@ const FilmDetailsPage = () => {
     const {state} = useLocation();
 
     const dispatch = useDispatch();
-    const {selectedFilm, genres} = useSelector(state => state['movieReducer']);
+    const {selectedFilm, genres, status} = useSelector(state => state['movieReducer']);
 
-    const poster = cinemaService.getPoster('1280', selectedFilm.backdrop_path);
+    const poster = cinemaService.getPoster('1280', selectedFilm?.backdrop_path);
+
+    useEffect(() => {
+        document.title = selectedFilm?.title;
+    }, [selectedFilm]);
 
     useEffect(() => {
         if (genres.length) {
@@ -25,45 +30,43 @@ const FilmDetailsPage = () => {
         }
 
         cinemaService.getById(id).then(state => dispatch(initializeSelectedFilm({state})));
-    }, [id]);
 
-    useEffect(() => {
-        document.title = selectedFilm.title;
-    }, [selectedFilm])
+    }, [id]);
 
     return (
         <>
-            {selectedFilm && <div className='main__film'>
-                <img src={poster} alt={selectedFilm.title}/>
-                <div className={'main__film-info'}>
-                    <div>
-                        <p>
-                            {selectedFilm.genres ?
-                                selectedFilm.genres.map(genre => <span key={genre.id}>{genre.name}/ </span>) :
+            {!selectedFilm ? <h3>OK, so... no movie...</h3> :
+                <div className='main__film'>
+                    <img src={poster} alt={selectedFilm.title}/>
+                    <div className={'main__film-info'}>
+                        <div>
+                            <p>
+                                {selectedFilm.genres ?
+                                    selectedFilm.genres.map(genre => <span key={genre.id}>{genre.name}/ </span>) :
 
-                                selectedFilm.genre_ids && selectedFilm.genre_ids.map(genre => <span
-                                    key={genre.id}> {genre.name}/ </span>)
-                            }<span className='title'>{selectedFilm.original_title}</span>
-                        </p>
-                        <p>
-                            premiere: {selectedFilm.release_date}
-                        </p>
-                    </div>
-                    <div className='rating'>
-                        <p>
-                            rating: <span>{selectedFilm.vote_average}</span> (total
-                            votes: <span>{selectedFilm.vote_count}</span>)
-                        </p>
-                        <p>
-                            {selectedFilm.overview}
-                        </p>
-                        <div className='add-info'>
-                            <p>original language: {selectedFilm.original_language}</p>
-                            <p>popularity: {selectedFilm.popularity}</p>
+                                    selectedFilm.genre_ids && selectedFilm.genre_ids.map(genre => <span
+                                        key={genre.id}> {genre.name}/ </span>)
+                                }<span className='title'>{selectedFilm.original_title}</span>
+                            </p>
+                            <p>
+                                premiere: {selectedFilm.release_date}
+                            </p>
+                        </div>
+                        <div className='rating'>
+                            <p>
+                                rating: <span>{selectedFilm.vote_average}</span> (total
+                                votes: <span>{selectedFilm.vote_count}</span>)
+                            </p>
+                            <p>
+                                {selectedFilm.overview}
+                            </p>
+                            <div className='add-info'>
+                                <p>original language: {selectedFilm.original_language}</p>
+                                <p>popularity: {selectedFilm.popularity}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>}
+                </div>}
         </>
     );
 };

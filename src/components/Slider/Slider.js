@@ -9,7 +9,7 @@ const Slider = () => {
     const [slides, setSlides] = useState([]);
 
     useEffect(() => {
-        cinemaService.getAll().then(response => setSlides([...response.results]));
+        cinemaService.getPopular().then(response => setSlides([...response.results]));
     }, []);
 
     return (
