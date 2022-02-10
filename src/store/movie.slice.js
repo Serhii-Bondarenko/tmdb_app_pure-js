@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {cinemaService} from '../services';
-import {click} from "@testing-library/user-event/dist/click";
 
 export const getGenres = createAsyncThunk(
     'movieSlice/getGenres',
@@ -17,8 +16,22 @@ export const getGenres = createAsyncThunk(
     }
 );
 
-export const getMovies = createAsyncThunk(
-    'movieSlice/getMovies',
+export const getTopRatedMovies = createAsyncThunk(
+    'movieSlice/getTopRatedMovies',
+    async (_, {dispatch, getState, rejectWithValue}) => {
+        const {movieReducer: {currentPage}} = getState();
+        try {
+            const response = await cinemaService.getByValue(currentPage, 'top_rated');
+            dispatch(setMoviesState({response}));
+
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+)
+
+export const getMoviesByCategory = createAsyncThunk(
+    'movieSlice/getMoviesByCategory',
 
     async (_, {dispatch, getState, rejectWithValue}) => {
         const {movieReducer: {currentPage, category}} = getState();
@@ -27,6 +40,20 @@ export const getMovies = createAsyncThunk(
             dispatch(setMoviesState({response}));
 
         } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
+export const getMoviesByQuery = createAsyncThunk(
+    'movieSlice/getMoviesByQuery',
+    async (_, {dispatch, getState, rejectWithValue}) => {
+        const {movieReducer: {currentPage, request}} = getState();
+        try {
+            const response = await cinemaService.getByQuery(currentPage, request);
+            dispatch(setMoviesState({response}));
+
+        }catch (e){
             return rejectWithValue(e.message);
         }
     }
@@ -41,7 +68,8 @@ const movieSlice = createSlice({
         movies: [],
         genres: [],
         selectedFilm: null,
-        category: 28,
+        category: null,
+        request: '',
         status: null,
         errors: null
     },
@@ -56,6 +84,7 @@ const movieSlice = createSlice({
             const {results, total_pages} = action.payload.response;
             state.totalPages = total_pages;
             state.movies = results;
+
         },
 
         initializeSelectedFilm: (state, action) => {
@@ -76,6 +105,10 @@ const movieSlice = createSlice({
 
         setCategory: (state, action) => {
             state.category = action.payload.genre;
+        },
+
+        setRequest: (state, action) => {
+            state.request = action.payload.queryParams;
         },
 
         setNewPage: (state, action) => {
@@ -105,16 +138,46 @@ const movieSlice = createSlice({
         },
 
         // Movies extra
-        [getMovies.pending]: (state, action) => {
+        [getMoviesByCategory.pending]: (state, action) => {
             state.status = 'pending';
             state.errors = null;
         },
 
-        [getMovies.fulfilled]: (state, action) => {
+        [getMoviesByCategory.fulfilled]: (state, action) => {
             state.status = 'fulfilled';
         },
 
-        [getGenres.rejected]: (state, action) => {
+        [getMoviesByCategory.rejected]: (state, action) => {
+            state.status = 'rejected';
+            state.errors = action.payload;
+        },
+
+
+        [getTopRatedMovies.pending]: (state, action) => {
+            state.status = 'pending';
+            state.errors = null;
+        },
+
+        [getTopRatedMovies.fulfilled]: (state, action) => {
+            state.status = 'fulfilled';
+        },
+
+        [getTopRatedMovies.rejected]: (state, action) => {
+            state.status = 'rejected';
+            state.errors = action.payload;
+        },
+
+
+        [getMoviesByQuery.pending]: (state, action) => {
+            state.status = 'pending';
+            state.errors = null;
+        },
+
+        [getMoviesByQuery.fulfilled]: (state, action) => {
+            state.status = 'fulfilled';
+        },
+
+        [getMoviesByQuery.rejected]: (state, action) => {
             state.status = 'rejected';
             state.errors = action.payload;
         }
@@ -130,6 +193,7 @@ export const {
     setGenres,
     initializeSelectedFilm,
     setCategory,
+    setRequest,
     setNewPage,
     setStatus
 } = movieSlice.actions;

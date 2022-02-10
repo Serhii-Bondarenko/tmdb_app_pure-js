@@ -23,11 +23,6 @@
     z-index: 10;
 }
 
-.wrap .active{
-    border-bottom: 2px solid #ff9638;
-    color: #ff9638;
-}
-
 .title{
     position: relative;
     color: dimgray;

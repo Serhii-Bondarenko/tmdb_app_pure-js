@@ -1,15 +1,10 @@
-.slider{
+.slider .pop-up{
+    font-size: 13px;
 }
 
 .slider .slide{
-    max-width: 200px;
-    background-color: #3490FF;
-    flex: none;
-}
-
-.slider .slide img{
-    /*height: 300px;*/
-    /*width: 200px;*/
+    background-color: #ff9638;
+    flex: 1 0 20%;
 }
 
 .slider-track{
@@ -17,5 +12,4 @@
     column-gap: 30px;
     overflow: hidden;
     overflow-x: scroll;
-
 }

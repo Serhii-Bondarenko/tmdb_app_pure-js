@@ -27,29 +27,25 @@
 }
 
 .item-link {
-    flex: 0 1 20%;
+    flex: 1 1 20%;
     position: relative;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    border: 1px solid black;
-    background-color: #ff9638;
-    color: ghostwhite;
+    background-color: #282c34;
+    color: #EDF4FB;
 }
 
 .item-link:hover{
-    flex: 0 1 21%;
+    flex: 1 1 21%;
     transition: 0.3s;
     opacity: 90%;
 }
 
-.item__content > div{
-    padding: 5px;
-}
-
-.item-link h4{
-    text-align: center;
-}
-
 .item-link img{
     width: 100%;
+}
+
+.item__info{
+    padding: 5px;
+    text-align: center;
 }

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+
 import './slider.css';
 import {cinemaService} from "../../services";
 import {Movie} from "../Movie/Movie";
@@ -9,7 +10,8 @@ const Slider = () => {
     const [slides, setSlides] = useState([]);
 
     useEffect(() => {
-        cinemaService.getPopular().then(response => setSlides([...response.results]));
+        cinemaService.getByValue(1, 'popular')
+            .then(response => setSlides([...response.results]));
     }, []);
 
     return (

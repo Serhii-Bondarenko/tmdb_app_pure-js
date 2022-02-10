@@ -10,5 +10,6 @@ export const urls = {
 };
 
 export const sort ={
-    popular: 'popularity.desc'
+    popular: 'popularity.desc',
+    query: '/search/movie'
 }

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import './movie.css';
 import {cinemaService} from "../../services";
+import StarRatings from "react-star-ratings/build/star-ratings";
 
 const Movie = ({movie}) => {
 
@@ -25,8 +26,15 @@ const Movie = ({movie}) => {
               onMouseLeave={leave}>
             <div className='item__content'>
                 <img src={poster} alt={title}/>
-                <div>
+                <div className='item__info'>
                     <h4>{title}</h4>
+                    <StarRatings
+                        rating={vote_average / 2}
+                        starRatedColor='ghostwhite'
+                        starDimension='15px'
+                        starSpacing='2px'
+                        starEmptyColor='transparent'
+                    />
                 </div>
                 <div ref={popup} className='pop-up'>
                     <p>Original language: <span>{original_language}</span></p>
