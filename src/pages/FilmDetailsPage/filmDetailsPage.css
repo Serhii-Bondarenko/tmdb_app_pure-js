@@ -1,46 +1,72 @@
-.main__film{
-    font-size: 22px;
-    background-color: black;
-}
-
-.main__film img{
-    width: 100%;
-    opacity: 70%;
+.main__film {
+    font-size: 18px;
+    height: 100vh;
+    overflow-y: auto;
     position: relative;
 }
 
-.main__film-info{
+.main__film-info {
     color: #f1f1f1;
     font-weight: bold;
-    position: absolute;
-    top: 10%;
-    bottom: 0;
-    left: 20px;
     display: flex;
     flex-direction: column;
-    row-gap: 55%;
+    height: 100%;
+    justify-content: space-between;
 }
 
-.title{
-    color: snow;
+.main__film-detail{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.rating{
+.film__info-trailer{
+    flex: 0 1 40%;
+}
+
+.film__info-base{
+    flex: 1 2 60%;
+}
+
+.film__info-base > div ul{
+    display: flex;
+}
+
+.film__info-base span{
+    color: silver;
+}
+
+.film__info-base div ul > .genre{
+    list-style: inside;
+    white-space: nowrap;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.film__info-base div ul > .genre:hover{
+    background-color: royalblue;
+}
+
+.title {
+    text-shadow: -1px 0 black, 0 1px ghostwhite, 1px 0 ghostwhite, 0 -1px black;
+    font-size: 25px;
+}
+
+.film__info-rating{
     display: flex;
     flex-direction: column;
 }
 
-.rating p:last-child{
+.film__info-rating p:last-child {
     text-align: justify;
 }
 
-.rating span{
+.film__info-rating span {
     color: orangered;
 }
 
-.add-info{
-    font-size: 16px;
-    display: flex;
-    color: gainsboro;
-    column-gap: 200px;
+.main__film-add {
+    font-size: 18px;
+    text-align: justify;
+    text-shadow: -1px 0 silver, 0 1px black, 1px 0 black, 0 -1px silver;
 }

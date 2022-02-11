@@ -18,5 +18,11 @@ export const cinemaService = {
 
     getGenres: () => axiosService.get(urls.genres).then(response => response.data),
 
-    getPoster: (width, path) => `${urls.img}${width}/${path}`
+    getMoviePoster: (width, path) => `${urls.img}${width}/${path}`,
+
+    getMovieVideo: (id) => axiosService.get(`${urls.movie}/${id}/videos`, {
+        params: {
+            append_to_response: 'videos'
+        }
+    }).then(response => response.data)
 }

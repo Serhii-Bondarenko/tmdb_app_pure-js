@@ -3,27 +3,26 @@ import {useSelector} from 'react-redux';
 
 import './movieList.css';
 import {Movie} from '../Movie/Movie';
-import {Loader} from "../Loader/Loader";
 import {Paginator} from "../Paginator/Paginator";
 
 const MoviesList = () => {
     const {
         movies,
-        totalPages,
-        status,
+        totalPages
     } = useSelector(state => state['movieReducer']);
 
     return (
-        <div className='wrap-list'>
-            {status === 'rejected' && <h3>OK, so... no movie...</h3>}
-            <div className='list'>
-                {movies.map(movie => <Movie key={movie.id} movie={movie}/>)}
-            </div>
-            {status === 'pending' && <Loader/>}
-            <div className='action__btn'>
-                <Paginator totalPages={totalPages}/>
-            </div>
-        </div>
+        <>
+            {!movies.length ? <div className='reject'><h3>OK, so... no movie...</h3></div> :
+                <div className='wrap-list'>
+                    <div className='list'>
+                        {movies.map(movie => <Movie key={movie.id} movie={movie}/>)}
+                    </div>
+                    <div className='action__btn'>
+                        <Paginator totalPages={totalPages}/>
+                    </div>
+                </div>}
+        </>
     );
 };
 

@@ -31,12 +31,13 @@
     position: relative;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    background-color: #282c34;
+    background-color: black;
+    text-align: center;
     color: #EDF4FB;
 }
 
 .item-link:hover{
-    flex: 1 1 21%;
+    flex: 1 1 22%;
     transition: 0.3s;
     opacity: 90%;
 }
@@ -46,6 +47,30 @@
 }
 
 .item__info{
-    padding: 5px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.movie-rating{
+    color: ghostwhite;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
     text-align: center;
+    margin: 0;
+    font-weight: bold;
+}
+
+.high{
+    background-color: forestgreen;
+}
+
+.middle{
+    background-color: #ff9638;
+}
+
+.low{
+    background-color: red;
 }

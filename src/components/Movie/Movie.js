@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 
 import './movie.css';
@@ -9,9 +9,22 @@ const Movie = ({movie}) => {
 
     const {id, title, vote_average, vote_count, poster_path, original_language} = movie;
 
-    const poster = cinemaService.getPoster('185', poster_path);
+    const poster = cinemaService.getMoviePoster('185', poster_path);
 
     const popup = useRef();
+    const rate = useRef();
+
+    useEffect(() => {
+        if (vote_average < 4) {
+            rate.current.classList.add('low');
+
+        } else if (vote_average > 7) {
+            rate.current.classList.add('high');
+
+        } else {
+            rate.current.classList.add('middle');
+        }
+    }, [vote_average]);
 
     const over = () => {
         popup.current.classList.add('on');
@@ -22,23 +35,25 @@ const Movie = ({movie}) => {
     }
 
     return (
-        <Link to={`/movie/${id.toString()}`} state={movie} className='item-link slide' onMouseOver={over}
-              onMouseLeave={leave}>
+        <Link to={`/movie/${id.toString()}`} className='item-link slide' onMouseOver={over} onMouseLeave={leave}>
             <div className='item__content'>
-                <img src={poster} alt={title}/>
+                <img src={
+                    !poster_path ? 'https://bytes.ua/wp-content/uploads/2017/08/no-image.png' :
+                        poster
+                } alt={title}/>
                 <div className='item__info'>
                     <h4>{title}</h4>
-                    <StarRatings
-                        rating={vote_average / 2}
-                        starRatedColor='ghostwhite'
-                        starDimension='15px'
-                        starSpacing='2px'
-                        starEmptyColor='transparent'
-                    />
+                    <p className='movie-rating' ref={rate}>{vote_average}</p>
                 </div>
                 <div ref={popup} className='pop-up'>
                     <p>Original language: <span>{original_language}</span></p>
-                    <p>Rating: <span>{vote_average}</span></p>
+                    <StarRatings
+                        rating={vote_average / 2}
+                        starRatedColor='gold'
+                        starDimension='15px'
+                        starSpacing='2px'
+                        starEmptyColor='silver'
+                    />
                     <p>Total votes: <span>{vote_count}</span></p>
                 </div>
             </div>

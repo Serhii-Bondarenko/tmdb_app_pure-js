@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {MoviesList, Slider} from "../../components";
+import {Loader, MoviesList, Slider} from "../../components";
 import {useDispatch, useSelector} from "react-redux";
 import {useSearchParams} from "react-router-dom";
 import {getGenres, getMoviesByCategory, getTopRatedMovies, setCategory, setNewPage} from "../../store";
@@ -9,29 +9,31 @@ const HomePage = () => {
 
     const dispatch = useDispatch();
 
-    const {genres} = useSelector(state => state['movieReducer']);
+    const {errors, status} = useSelector(state => state['movieReducer']);
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        !genres.length && dispatch(getGenres());
-    }, [genres]);
-
-    const [searchParams] = useSearchParams();
-
-    useEffect(() => {
-        // }
+        document.title = 'FMovies';
+        if (!searchParams.get('page')) {
+            setSearchParams({page: '1'});
+        }
         const page = searchParams.get('page');
-        // const genre = searchParams.get('with_genres');
         dispatch(setNewPage({page}));
         dispatch(getTopRatedMovies());
     }, [searchParams]);
 
     return (
-        <div className='main__home container'>
-            <h3>Popular</h3>
-            <Slider/>
-            <h3>Top Rated</h3>
-            <MoviesList/>
-        </div>
+        <>
+            {errors ? <div className='reject'><h3>OK, so... no movie...</h3></div> :
+                status === 'pending' ? <Loader/> :
+                    <div className='main__home container'>
+                        <h3>Popular</h3>
+                        <Slider/>
+                        <h3>Top Rated</h3>
+                        <MoviesList/>
+                    </div>}
+        </>
     );
 };
 

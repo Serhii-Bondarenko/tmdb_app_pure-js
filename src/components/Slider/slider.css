@@ -3,7 +3,7 @@
 }
 
 .slider .slide{
-    background-color: #ff9638;
+    background-color: darkslategray;
     flex: 1 0 20%;
 }
 
@@ -11,5 +11,5 @@
     display: flex;
     column-gap: 30px;
     overflow: hidden;
-    overflow-x: scroll;
+    position: relative;
 }

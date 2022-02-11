@@ -2,28 +2,14 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {cinemaService} from '../services';
 
-export const getGenres = createAsyncThunk(
-    'movieSlice/getGenres',
-
-    async (_, {dispatch, rejectWithValue}) => {
-        try {
-            const genres = await cinemaService.getGenres();
-            dispatch(setGenres(genres));
-
-        } catch (e) {
-            return rejectWithValue(e.message);
-        }
-    }
-);
-
 export const getTopRatedMovies = createAsyncThunk(
     'movieSlice/getTopRatedMovies',
     async (_, {dispatch, getState, rejectWithValue}) => {
         const {movieReducer: {currentPage}} = getState();
         try {
-            const response = await cinemaService.getByValue(currentPage, 'top_rated');
-            dispatch(setMoviesState({response}));
-
+            const response = [await cinemaService.getGenres(), await cinemaService.getByValue(currentPage, 'top_rated')];
+            const data = await Promise.all(response);
+            dispatch(setMoviesState({data}));
         } catch (e) {
             return rejectWithValue(e.message);
         }
@@ -36,8 +22,9 @@ export const getMoviesByCategory = createAsyncThunk(
     async (_, {dispatch, getState, rejectWithValue}) => {
         const {movieReducer: {currentPage, category}} = getState();
         try {
-            const response = await cinemaService.getByCategory(currentPage, category);
-            dispatch(setMoviesState({response}));
+            const response = [await cinemaService.getGenres(), await cinemaService.getByCategory(currentPage, category)];
+            const data = await Promise.all(response);
+            dispatch(setMoviesState({data}));
 
         } catch (e) {
             return rejectWithValue(e.message);
@@ -50,14 +37,29 @@ export const getMoviesByQuery = createAsyncThunk(
     async (_, {dispatch, getState, rejectWithValue}) => {
         const {movieReducer: {currentPage, request}} = getState();
         try {
-            const response = await cinemaService.getByQuery(currentPage, request);
-            dispatch(setMoviesState({response}));
+            const response = [await cinemaService.getGenres(), await cinemaService.getByQuery(currentPage, request)];
+            const data = await Promise.all(response);
+            dispatch(setMoviesState({data}));
 
-        }catch (e){
+        } catch (e) {
             return rejectWithValue(e.message);
         }
     }
 );
+
+export const getMovieDetails = createAsyncThunk(
+    'movieSlice/getMovieDetails',
+    async ({id}, {dispatch, rejectWithValue}) => {
+        try {
+            const response = [await cinemaService.getById(id), await cinemaService.getMovieVideo(id)];
+            const data = await Promise.all(response);
+            dispatch(setSelectedFilm({data}));
+
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+)
 
 const movieSlice = createSlice({
     name: 'movieSlice',
@@ -67,7 +69,7 @@ const movieSlice = createSlice({
         totalPages: null,
         movies: [],
         genres: [],
-        selectedFilm: null,
+        selectedFilm: {},
         category: null,
         request: '',
         status: null,
@@ -76,30 +78,25 @@ const movieSlice = createSlice({
 
     reducers: {
 
-        setGenres: (state, action) => {
-            state.genres = action.payload.genres;
-        },
-
         setMoviesState: (state, action) => {
-            const {results, total_pages} = action.payload.response;
-            state.totalPages = total_pages;
+            const [{genres}, {results, total_pages}] = action.payload.data;
+
+            state.genres = genres;
             state.movies = results;
+            state.totalPages = total_pages;
+
+            state.selectedFilm = {};
 
         },
 
-        initializeSelectedFilm: (state, action) => {
+        setSelectedFilm: (state, action) => {
+            const [movie, video] = action.payload.data;
 
-            state.selectedFilm = action.payload.state;
-
-            if (state.selectedFilm.genre_ids) {
-
-                state.selectedFilm = {
-                    ...state.selectedFilm,
-
-                    genre_ids: state.selectedFilm.genre_ids.map(genreId => {
-                        return state.genres.find(genre => genre.id === genreId);
-                    })
-                }
+            state.selectedFilm = {
+                ...movie,
+                img: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path || movie.poster_path}`,
+                video_path: video.results[0]?.key ? `https://www.youtube.com/embed/${video.results[0].key}` :
+                    'https://www.youtube.com/embed/watch?v=xObfAv-fEjU&list=PLY1sAemBLA5wJKqD7nHAyIQtjuvgoWh3O&index=10'
             }
         },
 
@@ -123,36 +120,6 @@ const movieSlice = createSlice({
 
     extraReducers: {
 
-        // Genres extra
-        [getGenres.pending]: (state, action) => {
-            state.status = 'pending';
-            state.errors = null;
-        },
-        [getGenres.fulfilled]: (state, action) => {
-            state.status = 'fulfilled';
-        },
-
-        [getGenres.rejected]: (state, action) => {
-            state.status = 'rejected';
-            state.errors = action.payload;
-        },
-
-        // Movies extra
-        [getMoviesByCategory.pending]: (state, action) => {
-            state.status = 'pending';
-            state.errors = null;
-        },
-
-        [getMoviesByCategory.fulfilled]: (state, action) => {
-            state.status = 'fulfilled';
-        },
-
-        [getMoviesByCategory.rejected]: (state, action) => {
-            state.status = 'rejected';
-            state.errors = action.payload;
-        },
-
-
         [getTopRatedMovies.pending]: (state, action) => {
             state.status = 'pending';
             state.errors = null;
@@ -165,6 +132,32 @@ const movieSlice = createSlice({
         [getTopRatedMovies.rejected]: (state, action) => {
             state.status = 'rejected';
             state.errors = action.payload;
+            console.log(action.payload);
+        },
+
+        [getMoviesByCategory.pending]: (state, action) => {
+            state.status = 'pending';
+            state.errors = null;
+        },
+
+        [getMoviesByQuery.fulfilled]: (state, action) => {
+            state.status = 'fulfilled';
+        },
+
+        [getMoviesByCategory.pending]: (state, action) => {
+            state.status = 'pending';
+            state.errors = null;
+        },
+
+        [getMoviesByCategory.fulfilled]: (state, action) => {
+            state.status = 'fulfilled';
+        },
+
+        [getMoviesByCategory.rejected]: (state, action) => {
+            state.status = 'rejected';
+            state.errors = action.payload;
+            console.log(action.payload);
+
         },
 
 
@@ -180,6 +173,22 @@ const movieSlice = createSlice({
         [getMoviesByQuery.rejected]: (state, action) => {
             state.status = 'rejected';
             state.errors = action.payload;
+            console.log(action.payload);
+        },
+
+        [getMovieDetails.pending]: (state, action) => {
+            state.status = 'pending';
+            state.errors = null;
+        },
+
+        [getMovieDetails.fulfilled]: (state, action) => {
+            state.status = 'fulfilled';
+        },
+
+        [getMovieDetails.rejected]: (state, action) => {
+            state.status = 'rejected';
+            state.errors = action.payload;
+            console.log(action.payload);
         }
     }
 });
@@ -190,8 +199,7 @@ export default movieReducer;
 
 export const {
     setMoviesState,
-    setGenres,
-    initializeSelectedFilm,
+    setSelectedFilm,
     setCategory,
     setRequest,
     setNewPage,

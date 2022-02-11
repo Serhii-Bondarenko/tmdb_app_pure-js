@@ -9,9 +9,21 @@ const Slider = () => {
 
     const [slides, setSlides] = useState([]);
 
+    const fetchData = async () => {
+        try {
+            const data = await cinemaService.getByValue(1, 'popular');
+            setSlides([...data.results]);
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
     useEffect(() => {
-        cinemaService.getByValue(1, 'popular')
-            .then(response => setSlides([...response.results]));
+        fetchData();
+        return () => {
+           setSlides([]);
+        }
     }, []);
 
     return (
