@@ -8,18 +8,25 @@ import {getMoviesByCategory, setCategory, setNewPage} from "../../store";
 
 
 const MoviesByGenrePage = () => {
-    const [searchParams] = useSearchParams();
-    const {genreId, genre} = useParams();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const {genreId} = useParams();
     const dispatch = useDispatch();
 
-    const {status, errors} = useSelector(state => state['movieReducer']);
+    const {category, status, errors} = useSelector(state => state['movieReducer']);
 
     useEffect(() => {
         document.title = 'FMovies';
+
+        if (!searchParams.get('page')) {
+            setSearchParams({page: '1'});
+        }
+
         const page = searchParams.get('page');
-        dispatch(setCategory({genre: +genreId}))
+
         dispatch(setNewPage({page}));
-        dispatch(getMoviesByCategory());
+        dispatch(getMoviesByCategory({id: genreId}));
+
     }, [searchParams, genreId]);
 
     return (
@@ -28,7 +35,7 @@ const MoviesByGenrePage = () => {
                 status === 'pending' ? <Loader/> :
                     <div className='container'>
                         <div>
-                            <h3>{genre}</h3>
+                            <h3>{category.name}</h3>
                         </div>
                         <MoviesList/>
                     </div>}

@@ -7,9 +7,14 @@ import {getMoviesByQuery, setNewPage, setRequest} from "../../store";
 const MoviesByQueryPage = () => {
 
     const dispatch = useDispatch();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
+
+        if (!searchParams.get('page')) {
+            setSearchParams({query: searchParams.get('query'), page: '1'});
+        }
+
         const queryParams = searchParams.get('query');
         const page = searchParams.get('page');
 

@@ -1,0 +1,32 @@
+/*.slide img{*/
+/*    border-radius: 20px;*/
+/*}*/
+
+/*.slide p{*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 10px;*/
+/*    color: #f1f1f1;*/
+/*    font-weight: bolder;*/
+/*    font-size: 20px;*/
+/*    text-shadow: -2px 0 #282c34, 1px 0 #f1f1f1, -2px 0 #282c34, 1px 0 #f1f1f1;*/
+/*}*/
+
+/*.slide div{*/
+/*    position: relative;*/
+/*}*/
+
+/*.slide{*/
+/*    position: absolute;*/
+/*    opacity: 1;*/
+/*    transition: all ease 1s;*/
+/*}*/
+
+/*.transparent{*/
+/*    opacity: 0;*/
+/*}*/
+
+
+/*.check{*/
+/*    background-color: gold;*/
+/*}*/

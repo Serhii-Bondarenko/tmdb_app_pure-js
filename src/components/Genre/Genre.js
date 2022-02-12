@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 
 import './genre.css';
@@ -6,7 +6,7 @@ import './genre.css';
 const Genre = ({genre, showList}) => {
 
     return (
-        <Link to={`/movie/${genre.name}/${genre.id.toString()}?page=1`} className='genre'
+        <Link to={`/movie/genre/${genre.id}?page=1`} className='genre'
               onClick={showList}>
 
             <li>{genre.name}</li>

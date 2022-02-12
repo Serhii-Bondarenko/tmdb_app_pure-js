@@ -19,12 +19,13 @@ export const getTopRatedMovies = createAsyncThunk(
 export const getMoviesByCategory = createAsyncThunk(
     'movieSlice/getMoviesByCategory',
 
-    async (_, {dispatch, getState, rejectWithValue}) => {
-        const {movieReducer: {currentPage, category}} = getState();
+    async ({id}, {dispatch, getState, rejectWithValue}) => {
+        const {movieReducer: {currentPage}} = getState();
         try {
-            const response = [await cinemaService.getGenres(), await cinemaService.getByCategory(currentPage, category)];
+            const response = [await cinemaService.getGenres(), await cinemaService.getByCategory(currentPage, id)];
             const data = await Promise.all(response);
             dispatch(setMoviesState({data}));
+            dispatch(setCategory({genreId: +id}));
 
         } catch (e) {
             return rejectWithValue(e.message);
@@ -67,10 +68,11 @@ const movieSlice = createSlice({
     initialState: {
         currentPage: 1,
         totalPages: null,
+        pageArr: [],
         movies: [],
         genres: [],
         selectedFilm: {},
-        category: null,
+        category: {},
         request: '',
         status: null,
         errors: null
@@ -84,9 +86,6 @@ const movieSlice = createSlice({
             state.genres = genres;
             state.movies = results;
             state.totalPages = total_pages;
-
-            state.selectedFilm = {};
-
         },
 
         setSelectedFilm: (state, action) => {
@@ -95,13 +94,13 @@ const movieSlice = createSlice({
             state.selectedFilm = {
                 ...movie,
                 img: `https://image.tmdb.org/t/p/w1280${movie.backdrop_path || movie.poster_path}`,
-                video_path: video.results[0]?.key ? `https://www.youtube.com/embed/${video.results[0].key}` :
-                    'https://www.youtube.com/embed/watch?v=xObfAv-fEjU&list=PLY1sAemBLA5wJKqD7nHAyIQtjuvgoWh3O&index=10'
+                video_path: video.results[0]?.key ? `https://www.youtube-nocookie.com/embed/${video.results[0].key}` :
+                    'https://www.youtube-nocookie.com/embed/watch?v=xObfAv-fEjU&list=PLY1sAemBLA5wJKqD7nHAyIQtjuvgoWh3O&index=10'
             }
         },
 
         setCategory: (state, action) => {
-            state.category = action.payload.genre;
+            state.category = state.genres.find(category => category.id === action.payload.genreId);
         },
 
         setRequest: (state, action) => {
@@ -114,6 +113,10 @@ const movieSlice = createSlice({
 
         setStatus: (state, action) => {
             state.status = action.payload.status;
+        },
+
+        setPageArr: (state, action) => {
+            state.pageArr = action.payload.array;
         }
 
     },
@@ -203,5 +206,6 @@ export const {
     setCategory,
     setRequest,
     setNewPage,
-    setStatus
+    setStatus,
+    setPageArr
 } = movieSlice.actions;

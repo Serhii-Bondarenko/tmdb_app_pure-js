@@ -2,14 +2,26 @@
     font-size: 13px;
 }
 
+.slider{
+    display: flex;
+}
+
 .slider .slide{
-    background-color: darkslategray;
-    flex: 1 0 20%;
+    background-color: whitesmoke;
+    flex: 1 0 250px;
+    transition: 1s;
+    font-size: 15px;
+    height: fit-content;
+    position: relative;
+    left: 0;
+}
+
+.slider .slide img{
 }
 
 .slider-track{
     display: flex;
     column-gap: 30px;
     overflow: hidden;
-    position: relative;
 }
+

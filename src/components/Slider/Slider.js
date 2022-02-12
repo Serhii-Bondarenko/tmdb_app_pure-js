@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useRef, useState} from 'react';
 
 
 import './slider.css';
@@ -8,6 +8,8 @@ import {Movie} from "../Movie/Movie";
 const Slider = () => {
 
     const [slides, setSlides] = useState([]);
+
+    const sliderLine = useRef();
 
     const fetchData = async () => {
         try {
@@ -22,14 +24,47 @@ const Slider = () => {
     useEffect(() => {
         fetchData();
         return () => {
-           setSlides([]);
+            setSlides([]);
         }
     }, []);
 
+    let offset = 0;
+    const start = 0;
+    const end = 4500;
+
+    const prev = () => {
+        offset -= 250;
+
+        if (offset < start) {
+            offset = end;
+        }
+
+        for (const element of sliderLine.current.children) {
+            element.style.left = `-${offset}px`;
+        }
+    }
+
+    const next = () => {
+        offset += 250;
+
+        if (offset > end) {
+            offset = start;
+        }
+
+        for (const element of sliderLine.current.children) {
+            element.style.left = `-${offset}px`;
+        }
+    }
+
+
     return (
-        <div className='slider'>
-            <div className='slider-track'>
-                {slides.map(slide => <Movie key={slide.id} movie={slide}/>)}
+        <div className='carousel'>
+            <div className='slider'>
+                <button onClick={() => prev()}>prev</button>
+                <div ref={sliderLine} className='slider-track'>
+                    {slides.map(slide => <Movie key={slide.id} movie={slide}/>)}
+                </div>
+                <button onClick={() => next()}>next</button>
             </div>
         </div>
     );

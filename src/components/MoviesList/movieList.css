@@ -1,8 +1,7 @@
 .action__btn{
     display: flex;
     align-items: center;
-    margin: 10px 0 0 30px;
+    margin-top: 20px;
     justify-content: center;
     padding: 10px;
-    width: 100%;
 }
