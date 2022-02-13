@@ -1,12 +1,11 @@
 import React from 'react';
 
-const SwitchTheme = () => {
+const SwitchTheme = ({data: {theme, switchTheme}}) => {
     return (
         <div>
-            <label htmlFor='switchTheme'>
-                dark theme
-                <input id='switchTheme' type='checkbox'/>
-            </label>
+            <button data-theme={theme} onClick={switchTheme}>
+                Switch to {theme === 'light' ? 'Dark' : 'Light'}
+            </button>
         </div>
     );
 };

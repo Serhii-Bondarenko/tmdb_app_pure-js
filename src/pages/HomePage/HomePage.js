@@ -23,8 +23,6 @@ const HomePage = () => {
 
     useEffect(() => {
         document.title = 'FMovies';
-        // dispatch(setViewPortWidth({width: }));
-
         if (!searchParams.get('page')) {
             setSearchParams({page: '1'});
         }

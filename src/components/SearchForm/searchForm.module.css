@@ -1,17 +1,35 @@
-.formContainer i{
+.formContainer i {
     font-size: 20px;
 }
 
-.formContainer i:hover{
+.formContainer i:hover {
     color: #ff9638;
 }
 
-.formContainer input{
+.formContainer input {
     padding: 5px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
 }
 
-.formContainer input::placeholder{
+.formContainer input::placeholder {
     font-style: italic;
+}
+
+@media (max-width: 576px){
+    .formContainer i{
+        font-size: 14px;
+    }
+    .formContainer input{
+        width: 100px;
+    }
+}
+
+@media (max-width: 576px){
+    .formContainer i{
+        font-size: 12px;
+    }
+    .formContainer input{
+        width: 80px;
+    }
 }

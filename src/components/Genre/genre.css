@@ -8,3 +8,24 @@
 .genre:hover{
     background-color: #EDF4FB;
 }
+
+@media (max-width: 768px) {
+
+    .genre{
+        flex: 1 1 25%;
+    }
+
+}
+
+@media (max-width: 576px){
+    .genre{
+        flex: 1 1 35%;
+    }
+}
+
+
+@media (max-width:420px){
+    .genre{
+        flex: 1 1 100%;
+    }
+}

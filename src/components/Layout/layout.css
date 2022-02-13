@@ -55,16 +55,18 @@ input {
 }
 
 .main {
-    background-color: #EDF4FB;
     height: fit-content;
+    color: var(--text-primary);
+    background-color: var(--background);
+    transition: all .5s;
 }
 
 .main h3{
     text-transform: uppercase;
     font-size: 30px;
     letter-spacing: 10px;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 #3490FF, 0 -1px #3490FF;
-    color: #282c34;
+    text-shadow: var(--text-shadow);
+    color: var(--text-primary);
 }
 
 .wrap-list{
@@ -86,4 +88,14 @@ input {
     align-items: start;
     justify-content: space-between;
     gap: 20px;
+}
+
+@media (max-width: 576px) {
+    .header{
+        height: auto;
+    }
+    .container {
+        padding: 0 5%;
+        margin-top: 70px;
+    }
 }

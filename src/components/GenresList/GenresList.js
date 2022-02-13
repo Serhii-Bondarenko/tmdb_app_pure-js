@@ -17,7 +17,10 @@ const GenresList = () => {
         <>
             {
                 genres.length ? <div className={css.wrap}>
-                    <h2 className={css.title} onClick={showList}>GENRES</h2>
+                    <h2 className={css.title} onClick={showList}>
+                        <span className={css.genresBtn}>GENRES</span>
+                        <span className={css.burgerMenu}><i className="fas fa-bars"/></span>
+                    </h2>
                     <ul ref={list} className={css.list}>
                         {genres.map(genre => <Genre key={genre.id} genre={genre} showList={showList}/>)}
                     </ul>

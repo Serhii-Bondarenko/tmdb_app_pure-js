@@ -2,11 +2,8 @@
     display: flex;
 }
 
-.arr{
-    /*display: flex;*/
-}
 .paginator button {
-    background-color: royalblue;
+    background-color: var(--text-secondary);
     border: 1px solid snow;
     color: white;
     padding: 10px 25px;
@@ -32,4 +29,10 @@
 
 .paginator button:disabled {
     display: none;
+}
+
+@media (max-width:420px){
+    .paginator button{
+        padding: 5px 10px;
+    }
 }

@@ -1,5 +1,5 @@
 .search-results{
-    background-color: #3490FF;
+    background-color: var(--text-secondary);
     color: white;
     padding: 5px;
     margin-bottom: 20px;

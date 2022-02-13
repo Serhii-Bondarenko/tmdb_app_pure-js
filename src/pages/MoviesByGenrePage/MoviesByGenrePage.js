@@ -33,7 +33,7 @@ const MoviesByGenrePage = () => {
         <>
             {errors ? <div className='reject'><h3>{errors}</h3></div> :
                 status === 'pending' ? <Loader/> :
-                    <div className='container'>
+                    <div className='main__genres container'>
                         <div>
                             <h3>{category.name}</h3>
                         </div>

@@ -44,7 +44,7 @@
 }
 
 .film__info-base div ul > .genre:hover{
-    background-color: #ff9638;
+    background-color: var(--text-secondary);
 }
 
 .title {
@@ -69,4 +69,37 @@
     font-size: 18px;
     text-align: justify;
     text-shadow: -1px 0 silver, 0 1px black, 1px 0 black, 0 -1px silver;
+}
+
+@media (max-width: 768px){
+    .film__info-trailer{
+        flex: 1 1 100%;
+    }
+    .main__film-add{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 576px){
+    .film__info-base{
+        flex: 1 1 100%;
+        font-size: 13px;
+    }
+
+}
+
+@media (max-width: 420px) {
+    .main__film-detail{
+        row-gap: 100px;
+    }
+    .main__film-info{
+        justify-content: stretch;
+    }
+    .title{
+        font-size: 20px;
+    }
+    .film__info-base div ul {
+        font-size: 10px;
+    }
+
 }

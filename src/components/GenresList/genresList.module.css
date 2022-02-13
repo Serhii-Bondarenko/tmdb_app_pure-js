@@ -1,4 +1,4 @@
-.list{
+.list {
     transition: 0.3s;
     max-height: 0;
     overflow: hidden;
@@ -13,14 +13,14 @@
     box-shadow: 4px 4px 22px 3px rgba(34, 60, 80, 0.15);
 }
 
-.show{
+.show {
     opacity: 100%;
     max-height: fit-content;
     transition: 0.5s;
     padding: 10px 5%;
 }
 
-.title{
+.title {
     position: relative;
     color: dimgray;
     cursor: pointer;
@@ -29,8 +29,27 @@
     margin: 6px;
 }
 
-.title:hover{
+.title:hover {
     transition: 0.1s;
     border-bottom: 2px solid #ff9638;
     color: #ff9638;
+}
+
+.burgerMenu{
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .genresBtn{
+        display: none;
+    }
+    .burgerMenu{
+        display: block;
+    }
+}
+
+@media (max-width: 420px){
+    .burgerMenu{
+        font-size: 15px;
+    }
 }
