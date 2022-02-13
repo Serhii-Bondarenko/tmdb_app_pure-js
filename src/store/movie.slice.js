@@ -68,7 +68,8 @@ const movieSlice = createSlice({
     initialState: {
         currentPage: 1,
         totalPages: null,
-        pageArr: [],
+        totalResults: null,
+        pages: [],
         movies: [],
         genres: [],
         selectedFilm: {},
@@ -81,11 +82,12 @@ const movieSlice = createSlice({
     reducers: {
 
         setMoviesState: (state, action) => {
-            const [{genres}, {results, total_pages}] = action.payload.data;
+            const [{genres}, {results, total_pages, total_results}] = action.payload.data;
 
             state.genres = genres;
             state.movies = results;
             state.totalPages = total_pages;
+            state.totalResults = total_results;
         },
 
         setSelectedFilm: (state, action) => {
@@ -111,12 +113,8 @@ const movieSlice = createSlice({
             state.currentPage = action.payload.page;
         },
 
-        setStatus: (state, action) => {
-            state.status = action.payload.status;
-        },
-
-        setPageArr: (state, action) => {
-            state.pageArr = action.payload.array;
+        setPages: (state, action) => {
+            state.pages = action.payload.pages;
         }
 
     },
@@ -206,6 +204,5 @@ export const {
     setCategory,
     setRequest,
     setNewPage,
-    setStatus,
-    setPageArr
+    setPages
 } = movieSlice.actions;

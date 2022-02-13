@@ -4,24 +4,35 @@
 
 .slider{
     display: flex;
+    overflow: hidden;
 }
 
 .slider .slide{
     background-color: whitesmoke;
-    flex: 1 0 250px;
-    transition: 1s;
+    flex: 1 0 280px;
     font-size: 15px;
     height: fit-content;
-    position: relative;
-    left: 0;
-}
-
-.slider .slide img{
 }
 
 .slider-track{
     display: flex;
-    column-gap: 30px;
-    overflow: hidden;
+    column-gap: 20px;
+    position: relative;
+    left: 0;
+    transition: 1s;
 }
 
+
+.carousel{
+    display: flex;
+}
+
+.carousel i{
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+.carousel i:hover{
+    color: ghostwhite;
+}

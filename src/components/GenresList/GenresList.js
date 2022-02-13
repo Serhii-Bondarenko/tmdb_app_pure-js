@@ -7,7 +7,6 @@ import {Genre} from "../Genre/Genre";
 const GenresList = () => {
 
     const list = useRef();
-
     const {genres} = useSelector(state => state['movieReducer']);
 
     const showList = () => {

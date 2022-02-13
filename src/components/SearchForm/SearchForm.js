@@ -13,7 +13,7 @@ const SearchForm = () => {
         if (searchInput.current.value) {
             const request = searchInput.current.value;
             setSearchRequest({query: request});
-            navigate(`movie/search?query=${request}&page=1`, {replace: true});
+            navigate(`movie/search?query=${request.trim()}&page=1`, {replace: true});
             searchInput.current.value = '';
         }
     }

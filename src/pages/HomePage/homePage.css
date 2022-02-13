@@ -1,4 +1,9 @@
 .home-pop{
     background-color: #ff9638;
     padding: 20px;
+    margin-top: 40px;
+}
+
+.home-pop h3{
+    padding: 0 3%;
 }

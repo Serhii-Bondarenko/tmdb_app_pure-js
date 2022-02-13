@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 
 import './slider.css';
@@ -8,7 +8,6 @@ import {Movie} from "../Movie/Movie";
 const Slider = () => {
 
     const [slides, setSlides] = useState([]);
-
     const sliderLine = useRef();
 
     const fetchData = async () => {
@@ -30,42 +29,32 @@ const Slider = () => {
 
     let offset = 0;
     const start = 0;
-    const end = 4500;
+    let numberOfSlides = slides.length;
+    let slideOffsetWidth = 300;
+    let end = numberOfSlides / (window.screen.width / slideOffsetWidth) * window.screen.width - (window.screen.width-150);
 
     const prev = () => {
-        offset -= 250;
-
-        if (offset < start) {
-            offset = end;
-        }
-
-        for (const element of sliderLine.current.children) {
-            element.style.left = `-${offset}px`;
-        }
+        offset -= slideOffsetWidth;
+        if (offset < 0) offset = end;
+        sliderLine.current.style.left = `-${offset}px`;
     }
 
     const next = () => {
-        offset += 250;
-
-        if (offset > end) {
-            offset = start;
-        }
-
-        for (const element of sliderLine.current.children) {
-            element.style.left = `-${offset}px`;
-        }
+        offset += slideOffsetWidth;
+        if (offset-150 > end) offset = start;
+        sliderLine.current.style.left = `-${offset}px`;
     }
 
 
     return (
         <div className='carousel'>
+            <button onClick={prev}><i className="fas fa-chevron-left"/></button>
             <div className='slider'>
-                <button onClick={() => prev()}>prev</button>
                 <div ref={sliderLine} className='slider-track'>
                     {slides.map(slide => <Movie key={slide.id} movie={slide}/>)}
                 </div>
-                <button onClick={() => next()}>next</button>
             </div>
+            <button onClick={next}><i className="fas fa-chevron-right"/></button>
         </div>
     );
 };

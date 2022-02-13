@@ -31,7 +31,7 @@ const MoviesByGenrePage = () => {
 
     return (
         <>
-            {errors ? <div className='reject'><h3>OK, so... no movie...</h3></div> :
+            {errors ? <div className='reject'><h3>{errors}</h3></div> :
                 status === 'pending' ? <Loader/> :
                     <div className='container'>
                         <div>

@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+
+import './moviesByQuery.css';
 import {Loader, MoviesList} from "../../components";
 import {useDispatch, useSelector} from "react-redux";
 import {useSearchParams} from "react-router-dom";
@@ -24,17 +26,19 @@ const MoviesByQueryPage = () => {
 
     }, [searchParams]);
 
-    const {status} = useSelector(state => state['movieReducer']);
+    const {status, totalResults, request, errors} = useSelector(state => state['movieReducer']);
 
     return (
         <>
-            {status === 'pending' && <Loader/>}
-            <div className={'container'}>
-                <div>
-                    <p>searching results: <span>{searchParams.get('query')}</span></p>
-                </div>
-                <MoviesList/>
-            </div>
+            {errors ? <div className='reject'><h3>{errors}</h3></div> :
+                status === 'pending' ? <Loader/> :
+                    <div className={'container'}>
+                        <div className='search-results'>
+                            <p>search results for <span>"{request}"</span>: {totalResults}</p>
+                        </div>
+                        <MoviesList/>
+                    </div>
+            }
         </>
     );
 };

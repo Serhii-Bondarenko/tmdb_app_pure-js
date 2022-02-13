@@ -9,7 +9,7 @@ const Movie = ({movie}) => {
 
     const {id, title, vote_average, vote_count, poster_path, original_language} = movie;
 
-    const poster = cinemaService.getMoviePoster('185', poster_path);
+    const poster = cinemaService.getMoviePoster('500', poster_path);
 
     const popup = useRef();
     const rate = useRef();

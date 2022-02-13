@@ -5,6 +5,7 @@ import css from './header.module.css';
 import {SearchForm} from '../SearchForm/SearchForm';
 import {UserAccount} from '../UserAccount/UserAccount';
 import {GenresList} from "../GenresList/GenresList";
+import {SwitchTheme} from "../SwitchTheme/SwitchTheme";
 
 const Header = () => {
     return (
@@ -15,6 +16,9 @@ const Header = () => {
                 </Link>
                 <GenresList/>
             </nav>
+            <div>
+                <SwitchTheme/>
+            </div>
             <div className={css.userAction}>
                 <SearchForm/>
                 <UserAccount/>
