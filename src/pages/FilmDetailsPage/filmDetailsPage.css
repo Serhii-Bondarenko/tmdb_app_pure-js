@@ -79,10 +79,7 @@
 
 @media (max-width: 768px){
     .film__info{
-        flex: 1 1 100%;
-    }
-    .film__trailer{
-        flex: 0 1 100%;
+        flex-basis: 60%;
     }
     .film__add{
         font-size: 10px;
@@ -92,6 +89,12 @@
 @media (max-width: 576px){
     .film__info div ul {
         font-size: 10px;
+    }
+    .film__info{
+        flex-basis: 100%;
+    }
+    .film__trailer{
+        flex-basis: 80%;
     }
     .film__base{
         flex: 1 1 100%;
