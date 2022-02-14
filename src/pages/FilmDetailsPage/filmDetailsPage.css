@@ -2,7 +2,11 @@
     font-size: 18px;
     height: 100vh;
     overflow-y: auto;
-    position: relative;
+}
+
+.main__film::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .film__info {
@@ -16,16 +20,17 @@
 
 .film__detail{
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     margin-top: 20px;
 }
 
 .film__trailer{
-    flex: 1 1 40%;
+    flex: 0 1 50%;
 }
 
 .film__info{
-    flex: 0 1 50%;
+    flex: 0 1 40%;
 }
 
 .film__info > div ul{
@@ -77,7 +82,7 @@
         flex: 1 1 100%;
     }
     .film__trailer{
-        flex: 1 1 100%;
+        flex: 0 1 100%;
     }
     .film__add{
         font-size: 10px;
@@ -85,6 +90,9 @@
 }
 
 @media (max-width: 576px){
+    .film__info div ul {
+        font-size: 10px;
+    }
     .film__base{
         flex: 1 1 100%;
         font-size: 13px;
@@ -93,17 +101,11 @@
 }
 
 @media (max-width: 420px) {
-    .film__detail{
-        row-gap: 100px;
-    }
     .film__info{
         justify-content: stretch;
     }
     .film__title{
         font-size: 20px;
-    }
-    .film__info div ul {
-        font-size: 10px;
     }
 
 }
