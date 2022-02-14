@@ -1,0 +1,13 @@
+.search-results{
+    background-color: var(--text-secondary);
+    color: white;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.search-results span{
+    color: #EDF4FB;
+    font-weight: bold;
+    font-size: 20px;
+}

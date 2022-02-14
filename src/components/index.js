@@ -8,3 +8,6 @@ export * from './Loader/Loader';
 export * from './Slider/Slider';
 export * from './GenresList/GenresList';
 export * from './Genre/Genre';
+export * from './Button/Button';
+export * from './Paginator/Paginator';
+export * from './SwitchTheme/SwitchTheme';

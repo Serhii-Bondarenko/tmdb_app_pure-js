@@ -1,0 +1,13 @@
+.wrap{
+    height: 100vh;
+}
+
+.notFound{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 100px auto;
+    color: darkgray;
+    width: 500px;
+    text-align: center;
+}

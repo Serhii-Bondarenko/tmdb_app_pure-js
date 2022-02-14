@@ -4,14 +4,78 @@
     column-gap: 20px;
 }
 
-.userContainer > div{
+.userImg{
     border-radius: 50%;
     background-color: dimgray;
     padding: 15px;
 }
 
-.userContainer i{
+.userImg i{
     font-size: 20px;
     font-weight: bold;
     color: white;
+}
+
+.userAction{
+    display: flex;
+    flex-direction: column;
+}
+
+.userAction p {
+    margin: 0;
+}
+
+.userAction button{
+    background-color: var(--text-reverse);
+    color: #EDF4FB;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+@media (max-width: 992px){
+    .userAction button{
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .userImg{
+        padding: 10px;
+    }
+    .userImg i{
+        font-size: 15px;
+    }
+    .userAction button{
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 420px){
+    .userAction p{
+        font-size: 14px;
+    }
+    .userAction button{
+        font-size: 8px;
+        padding: 3px;
+    }
+    .userContainer{
+        column-gap: 10px;
+    }
+    .userImg{
+        letter-spacing: 0;
+        padding: 8px 10px;
+    }
+    .userImg i{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 393px){
+    .userImg{
+        display: none;
+    }
 }

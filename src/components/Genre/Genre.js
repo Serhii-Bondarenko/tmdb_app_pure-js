@@ -1,19 +1,16 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
+import {Link} from 'react-router-dom';
 
-import css from './genre.module.css';
-import {setCategory} from "../../store";
-import {Link} from "react-router-dom";
+import './genre.css';
 
-const Genre = ({genre}) => {
-
-    const dispatch = useDispatch();
-
-    const chooseGenre = () => dispatch(setCategory({genre}));
+const Genre = ({genre, showList}) => {
 
     return (
-        <Link to={'/'} className={css.item} onClick={chooseGenre}>
+        <Link to={`/movie/genre/${genre.id}?page=1`} className='genre'
+              onClick={showList}>
+
             <li>{genre.name}</li>
+
         </Link>
     );
 };

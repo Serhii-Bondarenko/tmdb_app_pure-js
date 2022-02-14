@@ -1,69 +1,94 @@
 import React, {useEffect} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import './filmDetailsPage.css';
-import {cinemaService} from '../../services';
-import {initializeSelectedFilm} from '../../store';
+import {getMovieDetails} from '../../store';
+import {Genre, Loader} from '../../components';
 
 const FilmDetailsPage = () => {
 
     const {id} = useParams();
-    const {state} = useLocation();
 
     const dispatch = useDispatch();
-    const {selectedFilm, genres} = useSelector(state => state['movieReducer']);
-
-    const poster = cinemaService.getPoster('1280', selectedFilm.backdrop_path);
+    const {selectedFilm, status, errors} = useSelector(state => state['movieReducer']);
 
     useEffect(() => {
-        if (genres.length) {
-            if (state) {
-                dispatch(initializeSelectedFilm({state}));
-                return;
-            }
-        }
+        title ? document.title = title : document.title = 'FMovies';
+    }, [selectedFilm]);
 
-        cinemaService.getById(id).then(state => dispatch(initializeSelectedFilm({state})));
+    useEffect(() => {
+        dispatch(getMovieDetails({id}));
     }, [id]);
 
-    useEffect(() => {
-        document.title = selectedFilm.title;
-    }, [selectedFilm])
+    const {
+        img,
+        title,
+        genres,
+        original_title,
+        release_date,
+        vote_average,
+        vote_count,
+        overview,
+        original_language,
+        popularity,
+        production_countries,
+        runtime,
+        video_path
+    } = selectedFilm;
 
     return (
         <>
-            {selectedFilm && <div className='main__film'>
-                <img src={poster} alt={selectedFilm.title}/>
-                <div className={'main__film-info'}>
-                    <div>
-                        <p>
-                            {selectedFilm.genres ?
-                                selectedFilm.genres.map(genre => <span key={genre.id}>{genre.name}/ </span>) :
+            {errors ? <div className='reject'><h3>OK, so... no movie...</h3></div> :
+                status === 'pending' ? <Loader/> :
+                    <div className='main__film' style={
+                        {
+                            backgroundImage: `linear-gradient(90deg, rgb(29, 37, 36, 0.9), rgb(249, 249, 249, 0) 100%), url(${img})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                        }
+                    }>
 
-                                selectedFilm.genre_ids && selectedFilm.genre_ids.map(genre => <span
-                                    key={genre.id}> {genre.name}/ </span>)
-                            }<span className='title'>{selectedFilm.original_title}</span>
-                        </p>
-                        <p>
-                            premiere: {selectedFilm.release_date}
-                        </p>
-                    </div>
-                    <div className='rating'>
-                        <p>
-                            rating: <span>{selectedFilm.vote_average}</span> (total
-                            votes: <span>{selectedFilm.vote_count}</span>)
-                        </p>
-                        <p>
-                            {selectedFilm.overview}
-                        </p>
-                        <div className='add-info'>
-                            <p>original language: {selectedFilm.original_language}</p>
-                            <p>popularity: {selectedFilm.popularity}</p>
+                        <div className={'main__film container'}>
+                            <div className='film__detail'>
+
+                                <div className={'film__info'}>
+                                    <div>
+                                        <ul>
+                                            {genres?.map(genre => <Genre key={genre.id} genre={genre}/>)}
+                                        </ul>
+                                        <p className='film__title'>{original_title}</p>
+                                    </div>
+                                    <p><span>premiere:</span> {release_date}</p>
+                                    <p><span>runtime:</span> {runtime} min</p>
+                                    <p><span>original language:</span> {original_language}</p>
+                                    <p><span>popularity:</span> {popularity}</p>
+                                    {production_countries?.[0]?.name &&
+                                        <p><span>country:</span> {production_countries?.[0].name}</p>}
+                                    <div className='film__rating'>
+                                        <p>
+                                            rating: <span>{vote_average}</span> (total
+                                            votes: <span>{vote_count}</span>)
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className='film__trailer'>
+                                    <iframe
+                                        src={video_path}
+                                        name={'video'}
+                                        allowFullScreen='allowFullScreen'
+                                        height='100%'
+                                        width='100%'
+                                    />
+                                </div>
+                            </div>
+                            <div className='film__add'>
+                                <p>{overview}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>}
+                    </div>}
+
         </>
     );
 };

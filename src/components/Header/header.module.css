@@ -15,3 +15,29 @@
     height: 50px;
 }
 
+@media (max-width: 768px) {
+    .headerNav{
+        flex-direction: row-reverse;
+        column-gap: 10px;
+    }
+    .headerNav img{
+        height: 40px;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .userAction{
+        column-gap: 10px;
+    }
+}
+
+@media (max-width: 420px){
+    .headerNav img{
+        height: 20px;
+        width: 80px;
+        margin-top: 5px;
+    }
+
+}
+

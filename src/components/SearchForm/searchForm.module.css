@@ -1,12 +1,41 @@
-.formContainer i{
+.formContainer i {
     font-size: 20px;
 }
 
-.formContainer input{
-    padding: 5px;
-    font-size: 14px;
+.formContainer i:hover {
+    color: #ff9638;
 }
 
-.formContainer input::placeholder{
+.formContainer input {
+    padding: 5px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.formContainer input::placeholder {
     font-style: italic;
+}
+
+@media (max-width: 992px){
+    .formContainer input{
+        width: 120px;
+    }
+}
+
+@media (max-width: 576px){
+    .formContainer i{
+        font-size: 14px;
+    }
+    .formContainer input{
+        width: 100px;
+    }
+}
+
+@media (max-width: 420px){
+    .formContainer i{
+        font-size: 12px;
+    }
+    .formContainer input{
+        width: 80px;
+    }
 }

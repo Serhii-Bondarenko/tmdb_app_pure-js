@@ -1,16 +1,29 @@
-import {axiosService} from "./axios.service";
-import {sort, urls} from "../configs";
+import {axiosService} from './axios.service';
+import {sort, urls} from '../configs';
 
 export const cinemaService = {
-    // getPopular: (page = '1') => axiosService.get(`${urls.popular}=${page}`).then(response => response.data),
-    // getTop: (page = '1') => axiosService.get(`${urls.top}=${page}`).then(response => response.data),
-    getAll: () => axiosService.get(urls.movies).then(response => response.data),
-    getByCategory: (page, endPoint) => axiosService.get(`${urls.categories}=${endPoint}&${sort.popular}&page=${page}`)
-        .then(response => response.data),
+
+    getByValue: (page, value) => axiosService.get(`${urls.movie}/${value}?page=${page}`).then(response => response.data),
+
+    getByCategory: (page, endPoint) => axiosService.get(urls.movies, {
+        params: {
+            with_genres: endPoint,
+            sort_by: sort.popular,
+            page
+        }
+    }).then(response => response.data),
+
+    getByQuery: (page, query) => axiosService.get(sort.query, {params: {query, page}}).then(response => response.data),
 
     getById: (id) => axiosService.get(`${urls.movie}/${id}`).then(response => response.data),
 
     getGenres: () => axiosService.get(urls.genres).then(response => response.data),
 
-    getPoster: (width, path) => `${urls.img}${width}/${path}`
+    getMoviePoster: (width, path) => `${urls.img}${width}/${path}`,
+
+    getMovieVideo: (id) => axiosService.get(`${urls.movie}/${id}/videos`, {
+        params: {
+            append_to_response: 'videos'
+        }
+    }).then(response => response.data)
 }
