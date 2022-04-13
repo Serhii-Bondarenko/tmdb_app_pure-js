@@ -9,7 +9,7 @@ import store from './store/store.config';
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <HashRouter basename={process.env.PUBLIC_URL}>
+            <HashRouter  basename={window.location.pathname || ''}>
                 <App/>
             </HashRouter>
         </Provider>
