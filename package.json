@@ -2,6 +2,7 @@
   "name": "tmdb_app_pure-js",
   "version": "0.1.0",
   "private": true,
+  "homepage": " https://serhii-bondarenko.github.io/tmdb_app_pure-js",
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.2",
@@ -21,13 +22,16 @@
     "@types/axios": "^0.14.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.22"
+    "@types/react-redux": "^7.1.22",
+    "gh-pages": "^3.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
