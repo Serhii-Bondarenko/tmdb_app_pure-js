@@ -2,7 +2,7 @@
   "name": "tmdb_app_pure-js",
   "version": "0.1.0",
   "private": true,
-  "homepage": " https://serhii-bondarenko.github.io/tmdb_app_pure-js",
+  "homepage": "https://serhii-bondarenko.github.io/tmdb_app_pure-js",
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.2",
