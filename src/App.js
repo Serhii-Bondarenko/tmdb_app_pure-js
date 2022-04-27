@@ -1,6 +1,5 @@
 import {Route, Routes, Navigate} from 'react-router-dom';
 
-import './App.css';
 import {Layout} from './components';
 import {FilmDetailsPage, HomePage, MoviesByGenrePage, MoviesByQueryPage, NotFoundPage} from './pages';
 

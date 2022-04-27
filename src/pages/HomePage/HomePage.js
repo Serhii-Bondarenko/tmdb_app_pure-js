@@ -27,8 +27,8 @@ const HomePage = () => {
 
     return (
         <>
-            {errors ? <div className='reject'><h3>{errors}</h3></div> :
-                status === 'pending' ? <Loader/> :
+            {
+                errors ? <div className='reject'><h3>{errors}</h3></div> :
                     <div className='main__home'>
                         <div className='home-pop'>
                             <div>
@@ -40,7 +40,8 @@ const HomePage = () => {
                             <h3>Top Rated</h3>
                             <MoviesList/>
                         </div>
-                    </div>}
+                    </div>
+            }
         </>
     );
 };

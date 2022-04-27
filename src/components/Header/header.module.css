@@ -13,6 +13,7 @@
 
 .headerNav img{
     height: 50px;
+    width: 170px;
 }
 
 @media (max-width: 768px) {
@@ -38,6 +39,5 @@
         width: 80px;
         margin-top: 5px;
     }
-
 }
 

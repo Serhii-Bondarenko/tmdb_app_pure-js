@@ -26,13 +26,9 @@ const Movie = ({movie}) => {
         }
     }, [vote_average]);
 
-    const over = () => {
-        popup.current.classList.add('on');
-    }
+    const over = () => popup.current.classList.add('on');
 
-    const leave = () => {
-        popup.current.classList.remove('on');
-    }
+    const leave = () => popup.current.classList.remove('on');
 
     return (
         <Link to={`/movie/${id.toString()}`} className='item-link slide' onMouseOver={over} onMouseLeave={leave}>

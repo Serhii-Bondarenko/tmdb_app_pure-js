@@ -1,11 +1,14 @@
 import React from 'react';
 
-const SwitchTheme = ({data: {theme, switchTheme}}) => {
+import './switchTheme.css';
+
+const SwitchTheme = ({theme}) => {
     return (
         <div>
-            <button data-theme={theme} onClick={switchTheme}>
-                Switch to {theme === 'light' ? 'Dark' : 'Light'}
-            </button>
+            <label data-theme={theme.theme} className='switch'>
+                <input type='checkbox' onChange={theme.switchTheme}/>
+                <span className='select round'/>
+            </label>
         </div>
     );
 };

@@ -9,7 +9,7 @@
 
 .slider .slide{
     background-color: whitesmoke;
-    flex: 1 0 280px;
+    flex: 1 0 250px;
     font-size: 15px;
     height: fit-content;
     color: #282c34;
@@ -36,7 +36,4 @@
 
 .carousel i:hover{
     color: ghostwhite;
-}
-
-@media (max-width:420px){
 }

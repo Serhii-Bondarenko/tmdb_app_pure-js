@@ -1,5 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
-
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import './slider.css';
 import {cinemaService} from '../../services';
@@ -30,8 +29,10 @@ const Slider = () => {
     let offset = 0;
     const start = 0;
     let numberOfSlides = slides.length;
-    let slideOffsetWidth = 300;
-    let end = numberOfSlides / (window.screen.width / slideOffsetWidth) * window.screen.width - (window.screen.width - 150);
+    let slideOffsetWidth = 270;
+    const end = useMemo(() => {
+        return numberOfSlides / (window.screen.width / slideOffsetWidth) * window.screen.width - (window.screen.width - 150);
+    }, [window.screen.width, numberOfSlides])
 
     const prev = () => {
         offset -= slideOffsetWidth;
@@ -45,17 +46,20 @@ const Slider = () => {
         sliderLine.current.style.left = `-${offset}px`;
     }
 
-
     return (
-        <div className='carousel'>
-            <button onClick={prev}><i className="fas fa-chevron-left"/></button>
-            <div className='slider'>
-                <div ref={sliderLine} className='slider-track'>
-                    {slides.map(slide => <Movie key={slide.id} movie={slide}/>)}
+        <>
+            {
+                !!slides.length && <div className='carousel'>
+                    <button onClick={prev}><i className="fas fa-chevron-left"/></button>
+                    <div className='slider'>
+                        <div ref={sliderLine} className='slider-track'>
+                            {slides.map(slide => <Movie key={slide.id} movie={slide}/>)}
+                        </div>
+                    </div>
+                    <button onClick={next}><i className="fas fa-chevron-right"/></button>
                 </div>
-            </div>
-            <button onClick={next}><i className="fas fa-chevron-right"/></button>
-        </div>
+            }
+        </>
     );
 };
 

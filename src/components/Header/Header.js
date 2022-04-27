@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 
 import css from './header.module.css';
 import {SearchForm} from '../SearchForm/SearchForm';
-import {UserAccount} from '../UserAccount/UserAccount';
 import {GenresList} from '../GenresList/GenresList';
+import {SwitchTheme} from '../SwitchTheme/SwitchTheme';
 
 const Header = ({theme}) => {
 
@@ -18,7 +18,7 @@ const Header = ({theme}) => {
             </nav>
             <div className={css.userAction}>
                 <SearchForm/>
-                <UserAccount switchTheme={theme}/>
+                <SwitchTheme theme={theme}/>
             </div>
         </div>
     );
