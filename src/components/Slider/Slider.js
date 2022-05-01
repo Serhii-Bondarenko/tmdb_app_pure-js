@@ -29,7 +29,7 @@ const Slider = () => {
     let offset = 0;
     const start = 0;
     let numberOfSlides = slides.length;
-    let slideOffsetWidth = 270;
+    let slideOffsetWidth = 300;
     const end = useMemo(() => {
         return numberOfSlides / (window.screen.width / slideOffsetWidth) * window.screen.width - (window.screen.width - 150);
     }, [window.screen.width, numberOfSlides])
