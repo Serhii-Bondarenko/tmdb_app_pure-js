@@ -28,7 +28,7 @@
 
 .item-link {
     padding: 2px;
-    flex: 1 1 20%;
+    flex: 0 1 300px;
     position: relative;
     box-sizing: border-box;
     border-bottom-right-radius: 10px;
@@ -80,12 +80,6 @@
     background-color: red;
 }
 
-@media (max-width: 920px) {
-    .item-link {
-        flex: 0 1 30%;
-    }
-}
-
 @media (max-width: 768px) {
     .item-link {
         font-size: 16px;
@@ -94,7 +88,7 @@
 
 @media (max-width: 576px) {
     .item-link {
-        flex: 1 1 40%;
+        flex: 0 1 300px;
         font-size: 16px;
     }
 }
@@ -102,7 +96,6 @@
 
 @media (max-width: 420px) {
     .item-link {
-        flex: 1 1 100%;
         font-size: 20px;
     }
 }

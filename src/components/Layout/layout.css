@@ -51,7 +51,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: start;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 20px;
 }
 

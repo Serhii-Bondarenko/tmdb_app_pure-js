@@ -31,12 +31,14 @@
     .userAction{
         column-gap: 10px;
     }
+    .headerNav img {
+        height: 30px;
+        width: 90px;
+    }
 }
 
 @media (max-width: 420px){
     .headerNav img{
-        height: 20px;
-        width: 80px;
         margin-top: 5px;
     }
 }
